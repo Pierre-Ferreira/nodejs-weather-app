@@ -20,14 +20,12 @@ geocode.geocodeAddress(argv.a, (errorMessage, result) => {
   if (errorMessage) {
     console.log(errorMessage)
   } else {
-    let longitude = result.longitude
-    let latitude = result.latitude
-    let address = result.address
-    weather.getWeather(address, latitude, longitude, (errorMsg, result) => {
+    let {longitude, latitude, address} = result
+    weather.getWeather(address, latitude, longitude, (errorMsg, weatherResult) => {
       if (errorMsg) {
         console.log(errorMsg)
       } else {
-        let {temperature, apparentTemperature} = result
+        let {temperature, apparentTemperature} = weatherResult
         temperature = parseFloat((temperature- 32) / 1.8).toFixed(2)
         apparentTemperature = parseFloat((apparentTemperature- 32) / 1.8).toFixed(2)
         console.log(`The temp at '${address}' is ${temperature}°C`)
